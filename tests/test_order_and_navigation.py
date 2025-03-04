@@ -38,7 +38,7 @@ class TestOrderAndNavigation:
             f"получен: {main_page.get_current_url()}"
         )
 
-    @allure.description('Проверяем, что при клике на логотип "Яндекс" открывается главная страница Дзена в новом окне')
+    @allure.description('Проверяем, что при клике на логотип Яндекс открывается главная страница Дзена в новом окне')
     def test_yandex_logo(self, driver):
         main_page = MainPage(driver)
         original_window = driver.current_window_handle
