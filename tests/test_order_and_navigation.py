@@ -27,7 +27,7 @@ class TestOrderAndNavigation:
             f"получен: {main_page.get_current_url()}"
         )
 
-    @allure.description('Проверяем, что при клике на логотип "Самокат" происходит переход на главную страницу Самоката')
+    @allure.description('Проверяем, что при клике на логотип "Самокат" происходит переход на главную страница Самоката')
     def test_scooter_logo(self, driver):
         main_page = MainPage(driver)
         driver.get(MainPageLocators.ORDER_FORM_URL)
@@ -38,15 +38,15 @@ class TestOrderAndNavigation:
             f"получен: {main_page.get_current_url()}"
         )
 
-    @allure.description('Проверяем, что при клике на логотип Яндекс открывается главная страница Дзена в новом окне')
+    @allure.description('Проверяем, что при клике на логотип "Яндекс" открывается главная страница Дзена в новом окне')
     def test_yandex_logo(self, driver):
         main_page = MainPage(driver)
         original_window = driver.current_window_handle
         main_page.click_yandex_logo()
-        WebDriverWait(driver, 5).until(EC.number_of_windows_to_be(2))
+        main_page.wait_for_windows_count(2, 5)
         new_window = [handle for handle in driver.window_handles if handle != original_window][0]
         driver.switch_to.window(new_window)
-        WebDriverWait(driver, 5).until(EC.url_contains("dzen.ru"))
+        main_page.wait_for_url_contains("dzen.ru", 5)
         assert "dzen.ru" in main_page.get_current_url(), (
             f"Ожидался URL страницы Дзена, содержащий 'dzen.ru', получен: {main_page.get_current_url()}"
         )

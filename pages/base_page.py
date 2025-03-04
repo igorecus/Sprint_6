@@ -33,3 +33,13 @@ class BasePage:
     def wait_for_url(self, url, timeout=None):
         timeout = timeout if timeout else self.wait_timeout
         WebDriverWait(self.driver, timeout).until(EC.url_to_be(url))
+
+    @allure.step("Ожидание открытия определенного количества окон")
+    def wait_for_windows_count(self, count, timeout=None):
+        timeout = timeout if timeout else self.wait_timeout
+        WebDriverWait(self.driver, timeout).until(EC.number_of_windows_to_be(count))
+
+    @allure.step("Ожидание, что URL содержит определенную строку")
+    def wait_for_url_contains(self, url_part, timeout=None):
+        timeout = timeout if timeout else self.wait_timeout
+        WebDriverWait(self.driver, timeout).until(EC.url_contains(url_part))

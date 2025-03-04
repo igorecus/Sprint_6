@@ -18,16 +18,8 @@ class TestMainPage:
     @allure.description('Проверка, что при клике на вопрос отображается правильный текст ответа')
     def test_text(self, driver, question_locator, answer_locator, expected_text):
         main_page = MainPage(driver)
-        # Закрываем баннер cookie, если он есть
-        try:
-            main_page.close_cookie_banner()
-        except Exception:
-            pass
-        # Ожидаем появления вопроса и скроллим к нему
+        main_page.close_cookie_banner()
         main_page.wait_for_element_appearance(question_locator)
-        # Кликаем по вопросу
-        main_page.click_on_element(question_locator)
-        # Ожидаем появления ответа и получаем его текст
-        main_page.wait_and_find_element(answer_locator)
+        main_page.click(question_locator)
         answer_text = main_page.get_element_text(answer_locator)
         assert answer_text == expected_text, f"Ожидаемый текст '{expected_text}', но получен '{answer_text}'"
